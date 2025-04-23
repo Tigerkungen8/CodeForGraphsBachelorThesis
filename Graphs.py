@@ -5,6 +5,15 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
                                                NavigationToolbar2Tk)
 from matplotlib.figure import Figure
 
+
+############# TEST
+import tkinter as tk
+##################
+
+
+global fig
+fig = Figure(figsize=(5, 4), dpi=100)
+
 class Graph():
     def __init__(self, edgeList = None, nodeList=None, treewidth=None, treeDecomposition=None):
         self.edgeList = [] if edgeList is None else edgeList
@@ -15,7 +24,7 @@ class Graph():
 
 
     def __str__(self):
-        pass
+        return f'Graph \n Edgelist: {self.edgeList} \n Nodelist: {self.nodeList} \n Treewidth: {self.treewidth}'
 
     def initiateGraph(self):
         if len(self.edgeList)==0 and len(self.nodeList)==0:
@@ -37,15 +46,26 @@ class Graph():
     def removeEdge(self, removeEdges):
         self.G.remove_edges_from(removeEdges)
 
+    """ 
     def listToMatrix(self, lst):
 
         pass
-
-
-
     
     def matrixToList(self, mat):
-        pass
+        pass 
+    """
+
+    def newLists(self, newNodeList=None, newEdgelist=None):
+        print("SELF: ",self)
+        print(self.edgeList)
+        self.edgeList = newEdgelist #if newEdgelist != None else self.edgeList
+        self.nodeList = newNodeList #if newNodeList != None else self.nodeList
+        return "Updated lists"
+
+    def updateGraph(self):
+        self.G.add_nodes_from(self.nodeList)
+        self.G.add_edges_from(self.edgeList)
+        return self.G
 
     def getTreewidth(self):
         k, TD = nx.algorithms.approximation.treewidth(self.G) # k = treewidth, TD = heuristic Tree Decomposition (not necessarily minimal)
@@ -58,27 +78,42 @@ class Graph():
 
 
     def generatePLTFromGraph(self):
-        global fig
-        fig = Figure(figsize=(5, 4), dpi=100)
+        #global fig
+        #fig = Figure(figsize=(5, 4), dpi=100)
         nx.draw(self.G, with_labels=True, font_weight='bold')
         nx.draw_shell(self.G, nlist=[range(5, 10), range(5)], with_labels=True, font_weight='bold')
 
-# COPIED FROM GITHUB TO TURN ADJECENCY LIST INTO A DICT WHICH CAN BE USED
-def convert_to_dict(text):
-    # Initialize an empty dictionary
-    result = {}
+
+    def convert_to_dict(text):
+        # Initialize an empty dictionary
+        result = {}
     
-    # Split the text by lines
-    lines = text.splitlines()
+        # Split the text by lines
+        lines = text.splitlines()
     
-    for line in lines:
-        # Split each line by ":"
-        key, value = line.split(":")
+        for line in lines:
+            # Split each line by ":"
+            key, value = line.split(":")
         
-        # Convert the key to an integer and the value to a list of integers
-        result[int(key)] = list(map(int, value.split()))
+            # Convert the key to an integer and the value to a list of integers
+            result[int(key)] = list(map(int, value.split()))
     
-    return result
+        return result
+
+    def dictIntoGraph(dic):
+        nodes = list(dic.keys())
+        edges = []
+        print(dic)
+        print("hello")
+        k = 0
+        for v in dic.values():
+            for i in range(len(v)):
+                edges.append((k, v[i]))
+            k += 1
+        return nodes, edges
+
+# COPIED FROM GITHUB TO TURN ADJECENCY LIST INTO A DICT WHICH CAN BE USED
+
 
 # Example input
 text = """1: 4 5 6
@@ -95,16 +130,48 @@ output_dict = convert_to_dict(text)
 print(output_dict)
 
 # Turn dictionary of nodes and edges into a graph (from stack overflow)
-def dictIntoGraph(dic):
-    nodes = list(dic.keys())
-    edges = []
-    for k, v in dic:
-        for i in range(len(v)):
-            edges.append((k, v[i]))
-    return nodes, edges
+
+
 
 
         
-K = Graph
+        
+        
+K = Graph()
+
+nodesList, edgesList, = dictIntoGraph(output_dict)
+
+print(nodesList, edgesList)
+
+K.newLists(nodesList, edgesList)
+
+K.updateGraph
+
+
+K.updateGraph()
+
+print(K)
+
+
 
 K.generatePLTFromGraph
+
+G = nx.complete_graph(5)
+
+nx.draw(G)
+
+plt.plot()
+
+
+fig = plt.figure(figsize=(5, 4), dpi=100)
+G = nx.petersen_graph()
+nx.draw(G, with_labels=True, font_weight='bold')
+
+# From stack overflow
+root = tk.Tk()
+
+canvas = FigureCanvasTkAgg(fig, master=root)
+plot_widget = canvas.get_tk_widget()
+
+plot_widget.grid(row=0, column=0)
+root.mainloop()

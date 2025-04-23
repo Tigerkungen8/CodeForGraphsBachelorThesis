@@ -73,7 +73,7 @@ inputHeigth = mainHeigth
 frameMain = tk.Frame(master=window, width = mainWidth, height = mainHeigth, bg = "chocolate1")
 frameMain.pack(fill=tk.BOTH, side=tk.LEFT, expand = True)
 
-canvas = FigureCanvasTkAgg(Graphs.fig, master=frameMain, width = mainWidth, height = mainHeigth, bg = "black")  # A tk.DrawingArea.
+canvas = FigureCanvasTkAgg(Graphs.fig, master=frameMain)  # A tk.DrawingArea.
 canvas.draw()
 
 
