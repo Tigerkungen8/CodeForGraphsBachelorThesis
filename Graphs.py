@@ -84,7 +84,7 @@ class Graph():
         nx.draw_shell(self.G, nlist=[range(5, 10), range(5)], with_labels=True, font_weight='bold')
 
 
-    def convert_to_dict(text):
+    def convert_to_dict(self, text):
         # Initialize an empty dictionary
         result = {}
     
@@ -100,11 +100,10 @@ class Graph():
     
         return result
 
-    def dictIntoGraph(dic):
+    def dictIntoGraph(self, dic):
         nodes = list(dic.keys())
         edges = []
         print(dic)
-        print("hello")
         k = 0
         for v in dic.values():
             for i in range(len(v)):
@@ -123,11 +122,13 @@ text = """1: 4 5 6
 5: 1 2 3 4 6
 6: 1 2 3 4 5"""
 
+
+
 # Convert the input text to a dictionary
-output_dict = convert_to_dict(text)
+#output_dict = convert_to_dict(text)
 
 # Print the result
-print(output_dict)
+#print(output_dict)
 
 # Turn dictionary of nodes and edges into a graph (from stack overflow)
 
@@ -136,7 +137,7 @@ print(output_dict)
 
         
         
-        
+"""        
 K = Graph()
 
 nodesList, edgesList, = dictIntoGraph(output_dict)
@@ -152,10 +153,10 @@ K.updateGraph()
 
 print(K)
 
+"""
 
-
-K.generatePLTFromGraph
-
+#K.generatePLTFromGraph
+""" 
 G = nx.complete_graph(5)
 
 nx.draw(G)
@@ -175,3 +176,4 @@ plot_widget = canvas.get_tk_widget()
 
 plot_widget.grid(row=0, column=0)
 root.mainloop()
+ """
