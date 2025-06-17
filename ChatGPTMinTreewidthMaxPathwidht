@@ -1,0 +1,15 @@
+import networkx as nx
+import matplotlib.pyplot as plt
+
+# Generate a complete binary tree
+height = 4  # This gives us 2^5 - 1 = 31 nodes
+tree = nx.balanced_tree(r=2, h=height)
+
+# Position nodes for visualization
+pos = nx.nx_pydot.graphviz_layout(tree, prog="C:\Program Files (x86)\Graphviz-12.2.1-win64\bin\dot.exe")  # Requires Graphviz installed
+
+# Plot
+plt.figure(figsize=(10, 6))
+nx.draw(tree, with_labels=True, node_size=500, node_color="lightblue", edge_color="gray")
+plt.title("Complete Binary Tree (Treewidth = 1, Pathwidth = Θ(log n))")
+plt.show()
